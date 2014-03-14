@@ -8,15 +8,15 @@
         </div>
         <fieldset style="width:90%;">
             <div class="control-group input-append" >
-                <label for="role_id" class="control-label">Select Role:<font color = "red"><sup>*</sup></font></label>
+                <label for="role_id" class="control-label">Select User:<font color = "red"><sup>*</sup></font></label>
                 <div class="controls">
-                    <?php echo $this->Form->input('', array('type' => 'select', 'options' => $roleId, 'name' => 'role_id', 'value' => $user['User']['role_id'], 'id' => 'id', 'empty' => 'Select Role', 'class' => 'required' )); ?>
+                    <?php echo $this->Form->input('', array('type' => 'select', 'options' => array( '0' => 'Client', '1' => 'Admin' ), 'name' => 'is_admin', 'value' => $user['User']['is_admin'], 'id' => 'id', 'empty' => 'Select User type', 'class' => 'required' )); ?>
                 </div>
             </div>
             <div class="control-group pull-right">
-                <label for="organisation_name" class="control-label">Organisation Name:<font color="red"><sup>*</sup></font></label>
+                <label for="organisation_name" class="control-label">Company Name:<font color="red"><sup>*</sup></font></label>
                 <div class="controls">
-                    <input type = "text" name='organisation_name' id='organisation_name' class="required" value="<?php echo $user['User']['organisation_name']?>">
+                    <input type = "text" name='company_name' id='company_name' class="required" value="<?php echo $user['User']['company_name']?>">
                 </div>
             </div>
             <div class="control-group input-append">
@@ -32,36 +32,18 @@
                 </div>
             </div>
             <div class="control-group input-append">
-                <label for="address" class="control-label">Address:<font color="red"><sup>*</sup></font></label>
-                <div class="controls">
-                    <textarea name='address' class="required" cols='5' rows='5'><?php echo $user['User']['address']?></textarea>
-                </div>
-            </div>
-            <div class="control-group pull-right">
-                <label for="city" class="control-label">City:<font color="red"><sup>*</sup></font></label>
-                <div class="controls">
-                    <input type='text' name='city' class="required alphabet" value="<?php echo $user['User']['city']?>">
-                </div>
-            </div>
-            <div class="control-group input-append">
-                <label for="state" class="control-label">State:<font color = "red"><sup>*</sup></font></label>
-                <div class="controls">
-                    <?php echo $this->Form->input('', array('type' => 'select', 'options' => $states, 'name' => 'state', 'value' => $user['User']['state'], 'empty' => 'Select State', 'class' => 'required' )); ?>
-                </div>
-            </div>
-            <div class="control-group pull-right">
-                <label for="pin" class="control-label">Pin:<font color = "red"><sup>*</sup></font></label>
-                <div class="controls">
-                    <input type='text'  name='pin' class="number required" minlength="6" maxlength="6" value="<?php echo $user['User']['pin']?>">
-                </div>
-            </div>
-            <div class="control-group input-append">
                 <label for="mobile" class="control-label">Mobile Number:<font color="red"><sup>*</sup></font><br/></label>
                 <div class="controls">
                     <div class="input-prepend input-append"><span class="add-on">+91-</span><input class="span2 required number" type='text' autocomplete='off' maxlength="10" minlength="10" name='mobile' value="<?php echo $user['User']['mobile']?>"></div>
                 </div>
             </div>
             <div class="control-group pull-right">
+                <label for="mobile" class="control-label">Expiry:<font color="red"><sup>*</sup></font><br/></label>
+                <div class="controls">
+                    <div class="input-prepend input-append"><input class="required date datepicker" type='text' autocomplete='off' name='valid_till' value="<?php echo date( 'Y-m-d', strtotime( $user['User']['valid_till'] ) ); ?>"></div>
+                </div>
+            </div>
+            <div class="control-group input-append">
                 <label for="email" class="control-label">Email Address:<font color="red"><sup>*</sup></font><br/></label>
                 <div class="controls">
                     <input type='email' autocomplete='off' class="required email" id="email" name='email' value="<?php echo $user['User']['email']?>">
@@ -96,7 +78,6 @@
         </fieldset>
     </div>
     <div class="loginstrbtn">
-        <input type = "hidden" name='parent_id' value="<?php echo $user['User']['parent_id'] ?>" >
         <input type = "hidden" name='created_by' value="<?php echo $user['User']['created_by'] ?>" >
         <input type = "hidden" name='id' value="<?php echo $user['User']['id'] ?>" >
         <input type = "hidden" name='is_active' value="<?php echo $user['User']['is_active'] ?>" >
@@ -104,3 +85,5 @@
         <input type="submit" id="Usersubmit" value="Update" class="btn btn-success pull-right">
     </div>
 </form>
+<br/>
+<br/>
