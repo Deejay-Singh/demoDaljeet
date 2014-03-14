@@ -17,6 +17,7 @@ if($users != null) { ?>
             <th>Created By</th>
             <th>Created</th>
             <th>Active</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -32,7 +33,7 @@ if($users != null) { ?>
                 <td><?php echo $detail['User']['is_admin'] ? 'N.A' : $this->Xyz->beautifulDate( $detail['User']['valid_till'] ); ?></td>
                 <td><?php echo isset( $usersList[$detail['User']['created_by']] ) ? ucwords( $usersList[$detail['User']['created_by']] ) : 'SYSTEM' ; ?></td>
                 <td><?php echo $this->Xyz->beautifulDate( $detail['User']['created'] ); ?></td>
-                <td>
+                <td>					
                     <?php if( $detail['User']['is_active'] == 1) { ?> 
                     <span id = 'span_<?php echo $detail['User']['id']; ?>' class="label label-success">YES</span>
                     <?php } else { ?> 
