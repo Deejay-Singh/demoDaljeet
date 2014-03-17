@@ -25,20 +25,43 @@
 					</p>
 				</div>
 			<?php } else { ?>
-				<div class="alert alert-block alert-error">
+				<div class="alert alert-block alert-success">
 					<p>
 						<strong>
-							<i class="icon-remove"></i>
+							<i class="icon-ok"></i>
 							Heads up!
 						</strong>
-							you have <?php echo $videos; ?>!!!
+							you have <?php echo $videos; ?> Videos
 						<br>
+					</p>
+					<p>
+						<a class="btn btn-success btn-small" type="button" href="<?php echo $this->Xyz->u( 'videos', 'upload' ); ?>" >Upload More</a>
 					</p>
 				</div>
 			<?php } ?>
 		</div>
 	</div>
 	<?php } else { ?>
-		
+		<div class="row-fluid">
+			<div class="span6">
+				<h3 class="header smaller lighter green">
+					<i class="icon-bullhorn"></i>
+					Alerts
+				</h3>
+				<div class="alert alert-block alert-primary">
+					<p>
+						<strong>
+							<i class="icon-ok"></i>
+							Hi!
+						</strong>
+							you have <?php echo $videos; ?> Videos
+						<br>
+					</p>
+					<p>
+						<a class="btn btn-primary btn-small" type="button" href="<?php echo $this->Xyz->u( 'videos', 'index' ); ?>" >View Now</a>
+					</p>
+				</div>
+			</div>
+		</div>
 	<?php } ?>
 </div>

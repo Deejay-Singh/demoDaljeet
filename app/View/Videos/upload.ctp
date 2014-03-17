@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="control-group pull-right">
-                <label for="organisation_name" class="control-label">Name:<font color="red"><sup>*</sup></font></label>
+                <label for="organisation_name" class="control-label">Video Name:<font color="red"><sup>*</sup></font></label>
                 <div class="controls">
                     <input type = "text" name='name' id='name' class="required">
                 </div>
@@ -25,25 +25,44 @@
                     <textarea col='5' rows='5' class="required" name="description" ></textarea>
                 </div>
             </div>
-        </fieldset>
-    </div>
-    <div class="form-horizontal well" >
-        <div class="breadcrumb">
-            <h3>Upload:</h3>
-        </div>
-        <fieldset>
-            <div class="control-group">
-                <label for="confirm_password" class="control-label">Choose File:<font color="red"><sup>*</sup></font><br/></label>
+            <div class="control-group pull-right">
                 <div class="controls">
-                    <input type='file' class="required" name='file_name'>
+                </div>
+            </div>
+            <div class="control-group input-append" id="uploadDiv">
+                <label for="first_name" class="control-label">File Name:<font color="red"><sup>*</sup></font></label>
+                <div class="controls">
+                    <input type = "text" name='file_name' id='file_name' class="required">
+                    <input style="height: 30px;position: absolute;" type="button" id="upload" value="Upload File" class="btn btn-danger pull-right">
+                </div>
+            </div>
+            <div class="control-group input-append hide" id="enterDiv">
+                <label for="first_name" class="control-label">Upload File:<font color="red"><sup>*</sup></font></label>
+                <div class="controls">
+                    <input type='file' class="required" name='upload_file'>
+                    <input style="height: 30px;position: absolute;" type="button" id="enter" value="Enter File name" class="btn btn-danger pull-right">
                 </div>
             </div>
         </fieldset>
     </div>
     <div class="loginstrbtn">
         <input type = "hidden" name='created_by' value="<?php echo $this->Session->read( 'Auth.User.id' ); ?>" >
-        <input type="submit" id="submit" value="Update" class="btn btn-success pull-right">
+        <input type="submit" id="submit" value="Upload" class="btn btn-success pull-right">
     </div>
 </form>
 <br/>
 <br/>
+<script>
+	jQuery(document).ready(function(){
+		jQuery('#upload').click(function(){
+			jQuery('#uploadDiv').hide();
+			jQuery('#enterDiv').slideDown('slow');
+			jQuery('#file_name').val('');
+		});
+		jQuery('#enter').click(function(){
+			jQuery('#uploadDiv').slideDown('slow');
+			jQuery('#enterDiv').hide();
+			jQuery('#file_name').val('');
+		});
+	});
+</script>

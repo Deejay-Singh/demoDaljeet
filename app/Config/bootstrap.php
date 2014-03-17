@@ -4,8 +4,7 @@ Configure::write('Dispatcher.filters', array( 'AssetDispatcher', 'CacheDispatche
 App::uses('CakeLog', 'Log');
 CakeLog::config('debug', array( 'engine' => 'FileLog', 'types' => array('notice', 'info', 'debug'), 'file' => 'debug', ));
 CakeLog::config('error', array( 'engine' => 'FileLog', 'types' => array('warning', 'error', 'critical', 'alert', 'emergency'), 'file' => 'error',));
-CakePlugin::load('Mongodb');
-CakePlugin::load('Rest');
+
 
 function dump( $var ) {
     echo '<pre>';
@@ -18,3 +17,4 @@ function dump( $var ) {
 }
 
 define( 'CMPNY', 'Demo' );
+define( 'ADMIN_EMAIL', 'demo@demo.com' );

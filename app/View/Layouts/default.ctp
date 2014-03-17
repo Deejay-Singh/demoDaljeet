@@ -11,7 +11,7 @@
     <?php
         echo $this->Html->meta(array("name"=>"viewport","content"=>"width=device-width,  initial-scale=1.0"));
         echo $this->Html->meta('icon');
-        echo $this->Html->css( array('assets/ace.min', 'assets/ace-responsive.min', 'assets/prettify', 'bootstrap', 'bootstrap-responsive', 'comb', 'style', 'style-responsive') );
+        echo $this->Html->css( array('assets/ace.min', 'assets/ace-responsive.min', 'assets/prettify', 'bootstrap', 'bootstrap-responsive', 'comb', 'style', 'style-responsive' ) );
         if( $this->Session->read( 'SKIN' ) == '1' ) echo $this->Html->css( array('assets/ace.min', 'assets/ace-responsive.min', 'assets/prettify') );
         echo $this->fetch('meta');
         echo $this->fetch('css');
