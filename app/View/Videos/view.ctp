@@ -33,7 +33,7 @@
 						<?php echo $this->Xyz->beautifulDate( $video['Video']['created'] ); ?>
 						<br>
 					</address>
-
+					
 					<address>
 						<strong>Contact Admin</strong>
 
@@ -54,10 +54,12 @@
 
 				<div class="widget-body">
 					<div class="widget-main">
-						<video width="320" height="240" controls>
-						  <source src="http://demo.daljeet.com/vids/Sample.mp4" type="video/mp4">
-						Your browser does not support the video tag.
-						</video>
+						<object width="700" height="700" title="bn" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" classid="clsid:D27CDB6E-AE6D-11cf-96B8-44953540000">
+							<param value="/vids/<?php echo $video['Video']['file_name'] ?>" name="movie">
+							<param value="high" name="quality">
+							<param value="transparent" name="wmode">
+							<embed width="700" height="700" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" quality="high" src="/vids/<?php echo $video['Video']['file_name'] ?>">
+						</object>  
 					</div>
 				</div>
 			</div>
@@ -66,6 +68,4 @@
 		<div class="space-6"></div>
 	</div>
 </div>
-    <script>
-		videojs.options.flash.swf = "/js/video_js/video-js.swf";
-	</script>
+

@@ -6,7 +6,7 @@ class DashboardController extends AppController {
     
     public function index() {
 		if( $this->Session->read( 'Auth.User.is_admin' ) ) {
-			$videos = $this->Video->find( 'count' );
+			$videos = $this->Video->find( 'count', array( 'conditions' => array( 'is_active' => 1 ) ) );
 			$this->set( 'videos', $videos );
 		} else {
 			$videos = $this->Video->find( 'count', array( 'conditions' => array( 'is_active' => '1', 'user_id' => $this->Session->read( 'Auth.User.id' ) ) ) );

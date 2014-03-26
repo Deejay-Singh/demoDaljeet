@@ -10,10 +10,10 @@ class VideosController extends AppController {
 		$cmpny = $this->User->find( 'list', array( 'fields' => array( 'id', 'company_name' ), 'conditions' => array( 'is_admin' => 0 ) ) );
 		$this->set( 'cmpny', $cmpny );
 		if( $this->Session->read( 'Auth.User.is_admin' ) ) { 
-			$vids = $this->Video->find( 'all' );
+			$vids = $this->Video->find( 'all', array( 'conditions' => array( 'is_active' => 1 ) ) );
 			$this->set( 'vids', $vids );
 		} else {
-			$vids = $this->Video->find( 'all', array( 'conditions' => array( 'user_id' => $this->Session->read( 'Auth.User.id' ) ) ) );
+			$vids = $this->Video->find( 'all', array( 'conditions' => array( 'user_id' => $this->Session->read( 'Auth.User.id' ), 'is_active' => 1 ) ) );
 			$this->set( 'vids', $vids );
 		}
 	}
@@ -53,12 +53,26 @@ class VideosController extends AppController {
 	
 	public function view( $videoId ) {
 		if( $this-> Session->read( 'Auth.User.is_admin' ) ) $video = $this->Video->find( 'first', array( 'conditions' => array( 'id' => $videoId ) ) );
-		else $video = $this->Video->find( 'first', array( 'conditions' => array( 'id' => $videoId, 'user_id' => $this->Session->read( 'Auth.User.id') ) ) );
+		else $video = $this->Video->find( 'first', array( 'conditions' => array( 'id' => $videoId, 'user_id' => $this->Session->read( 'Auth.User.id' ), 'is_active' => '1' ) ) );
 		if( count($video) == 0 ) {
 			$this->Session->setFlash(__( 'No Video Found' ), 'default', array( 'class' => 'alert alert-error' ) );
 			$this->redirect( array( 'action' => 'index' ) );
 		}
 		$this->set( 'video', $video );
+	}
+	
+	public function delete( $videoId = null ) {
+		if( !$this-> Session->read( 'Auth.User.is_admin' ) ) {
+			$this->Session->setFlash(__( 'Action not allowed' ), 'default', array( 'class' => 'alert alert-error' ) );
+			$this->redirect( array( 'action' => 'index' ) );
+		}
+		$vid = $this->Video->find( 'first', array( 'conditions' => array( 'id' => $videoId ) ) );
+		dump($vid);
+		$this->Video->updateAll( array( 'is_active' => "0" ), array( 'id' => $vid['Video']['id'] ) );
+		$dir = WWW_ROOT . 'vids/' . $vid['Video']['file_name'];
+		unlink($dir);
+		$this->Session->setFlash(__( 'Video Deleted' ), 'default', array( 'class' => 'alert alert-success' ) );
+		$this->redirect( array( 'action' => 'index' ) );
 	}
 	
 }
