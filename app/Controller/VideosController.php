@@ -25,6 +25,10 @@ class VideosController extends AppController {
 		}
 		if( $data = $this->request->data ) {
 			if( !isset( $data['file_name'] ) ||  $data['file_name'] == '' ) {
+				if( $_FILES['upload_file']['type'] != 'application/x-shockwave-flash' ) {
+					$this->Session->setFlash(__( 'Only SWF Files' ), 'default', array( 'class' => 'alert alert-error' ) );
+					$this->redirect( array( 'action' => 'index' ) );
+				}
 				$fileExtension = "." . end(explode( '.', $_FILES['upload_file']['name']));
 				$dir = WWW_ROOT . 'vids/';
 				if (!is_dir($dir)) {
