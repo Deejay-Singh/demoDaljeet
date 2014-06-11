@@ -13,7 +13,7 @@
 <![endif]-->
         <!--[if !IE]>-->
         <script type="text/javascript">
-            window.jQuery || document.write("<script src='<?php WWW_ROOT ?>/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+            window.jQuery || document.write("<script src='/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
         </script>
         <!--<![endif]-->
         <!--[if IE]>
@@ -23,16 +23,16 @@
 <![endif]-->
 
         <script type="text/javascript">
-            if("ontouchend" in document) document.write("<script src='<?php WWW_ROOT ?>/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+            if("ontouchend" in document) document.write("<script src='/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
         </script>
-        <script src="<?php WWW_ROOT ?>/assets/js/bootstrap.min.js"></script>
+        <script src="/assets/js/bootstrap.min.js"></script>
 
         <!--page specific plugin scripts-->
 
         <!--ace scripts-->
 
-        <script src="<?php WWW_ROOT ?>/assets/js/ace-elements.min.js"></script>
-        <script src="<?php WWW_ROOT ?>/assets/js/ace.min.js"></script>
+        <script src="/assets/js/ace-elements.min.js"></script>
+        <script src="/assets/js/ace.min.js"></script>
 
         <!--inline scripts related to this page-->
 
@@ -55,10 +55,7 @@
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,300" />
 
         <!--ace styles-->
-        <link rel="stylesheet" href="<?php WWW_ROOT ?>/assets/css/ace.min.css" />
-        <link rel="stylesheet" href="<?php WWW_ROOT ?>/assets/css/ace-responsive.min.css" />
-        <link rel="stylesheet" href="<?php WWW_ROOT ?>/assets/css/ace-skins.min.css" />
-        <link rel="stylesheet" href="<?php WWW_ROOT ?>/assets/css/font-awesome.min.css" />
+        <?php echo $this->Html->css( array('assets/ace.min', 'assets/ace-responsive.min', 'assets/prettify', 'bootstrap', 'bootstrap-responsive', 'comb', 'style', 'style-responsive' ) );?>
 </head>
 <body class="login-layout" data-spy="scroll" data-target=".subnav" data-offset="50">
     <div class="main-container container-fluid">

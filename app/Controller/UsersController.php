@@ -12,7 +12,7 @@ class UsersController extends AppController {
     }
     
     public function addUser() {
-		if( !$this->Session->read( 'Auth.User.is_admin' ) ) $this->redirect( array( 'controller' => 'dashboard', 'action' => 'index' ) );
+		if( !$this->Session->read( 'Auth.User.is_admin' ) ) $this->redirect( array( 'controller' => 'videos', 'action' => 'index' ) );
         if($this->request->data) {
             if( $this->commonElements() ) {
                 $data['User'] = $this->data;
@@ -30,7 +30,7 @@ class UsersController extends AppController {
     
     public function login() {
         $this->layout = "login";
-        if( $this->Session->check('Auth.User') ) $this->redirect(array( 'controller' => 'dashboard', 'action' => 'index' ) );
+        if( $this->Session->check('Auth.User') ) $this->redirect(array( 'controller' => 'videos', 'action' => 'index' ) );
         if( !empty($this->data) ) {
 			if( !$this->Auth->login() ) {
 				if($this->request->is( 'post') ) {
@@ -40,11 +40,11 @@ class UsersController extends AppController {
 				if( !$this->Session->read( 'Auth.User.is_active' ) ) {
 					$this->logout( 'block' );
 				}
-				if( $this->Session->read( 'Auth.User.is_admin' ) ) $this->redirect( array( 'controller' => 'dashboard', 'action' => 'index' ) );
+				if( $this->Session->read( 'Auth.User.is_admin' ) ) $this->redirect( array( 'controller' => 'videos', 'action' => 'index' ) );
 				if( date( 'Y-m-d', strtotime( $this->Session->read( 'Auth.User.valid_till' ) ) ) < date( 'Y-m-d' ) ) {
 					$this->logout( 'expire' );
 				}
-				$this->redirect( array( 'controller' => 'dashboard', 'action' => 'index' ) );
+				$this->redirect( array( 'controller' => 'videos', 'action' => 'index' ) );
 			}
         }
     }
@@ -72,12 +72,12 @@ class UsersController extends AppController {
 			$userView = $this->User->find('first', array( 'conditions' => array( 'id' => $id ) ) );
 			$this->set( 'userView', $userView );
 		} else {
-			$this->redirect( array( 'controller' => 'dashboard', 'action' => 'index' ) );
+			$this->redirect( array( 'controller' => 'videos', 'action' => 'index' ) );
 		}
     }
     
     public function index() {
-		if( !$this->Session->read( 'Auth.User.is_admin' ) ) $this->redirect( array( 'controller' => 'dashboard', 'action' => 'index' ) );
+		if( !$this->Session->read( 'Auth.User.is_admin' ) ) $this->redirect( array( 'controller' => 'videos', 'action' => 'index' ) );
         $users = $this->User->find('all', array( 'order' => array( 'created DESC' ) ) );
         $this->set('users', $users);
         $usersList = $this->User->find('list', array( 'fields' => array( 'id', 'first_name' ) ) );
@@ -93,7 +93,7 @@ class UsersController extends AppController {
     }
     
     public function edit( $id = null ) {
-		if( !$this->Session->read( 'Auth.User.is_admin' ) ) $this->redirect( array( 'controller' => 'dashboard', 'action' => 'index' ) );
+		if( !$this->Session->read( 'Auth.User.is_admin' ) ) $this->redirect( array( 'controller' => 'videos', 'action' => 'index' ) );
         $user = $this->User->find( 'first', array( 'conditions' => array( 'id' => $id ) ) );
         $this->set( 'user', $user );
         if($data = $this->request->data) {
@@ -113,11 +113,11 @@ class UsersController extends AppController {
     }
     
     public function commonElements( $id = null ) {
-        if( $id )  $conditions = array( 'OR' => array( 'user_name' => $this->data['user_name'], 'email' => $this->data['email'], 'mobile' => $this->data['mobile'] ), 'id NOT' => $id );
-        else $conditions = array( 'OR' => array( 'user_name' => $this->data['user_name'], 'email' => $this->data['email'], 'mobile' => $this->data['mobile'] ) );
+        if( $id )  $conditions = array( 'OR' => array( 'user_name' => $this->data['user_name'], 'id NOT' => $id ) );
+        else $conditions = array( 'OR' => array( 'user_name' => $this->data['user_name'] ) );
         $userData = $this->User->find('first', array( 'fields' => array( 'user_name AS User_name', 'email AS Email_Id', 'mobile AS Mobile_No' ), 'conditions' => $conditions ) );
         if( $userData ) {
-            $commonElements = array_intersect($userData['User'], array( $this->data['user_name'], $this->data['mobile'], $this->data['email'] ) );
+            $commonElements = array_intersect($userData['User'], array( $this->data['user_name'] ) );
             if( $commonElements ) {
                 $message = null;
                 foreach( $commonElements as $key => $value ) {
@@ -134,7 +134,7 @@ class UsersController extends AppController {
         $this->layout = "login";
         if( $data = $this->request->data ) {
             if( $this->params->params['pass'] ) {
-                $user = $this->User->find( 'first', array( 'fields' => array( 'id', 'email' , 'first_name' ), 'conditions' => array( 'token_hash' => $this->params->params['pass'] ) ) );
+                $user = $this->User->find( 'first', array( 'fields' => array( 'id' , 'first_name' ), 'conditions' => array( 'token_hash' => $this->params->params['pass'] ) ) );
                 if( $user ) {
                     $this->User->save( array( 'id' => $user['User']['id'], 'user_pass' => md5( $data['user_pass'] ), 'reset_password' => 0, 'token_hash' => '' ) );
                     $this->Session->setFlash(__('Password Changed'), 'default', array( 'class' => 'alert alert-success' ) );

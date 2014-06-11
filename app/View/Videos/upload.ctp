@@ -33,7 +33,13 @@
                 <label for="first_name" class="control-label">File Name:<font color="red"><sup>*</sup></font></label>
                 <div class="controls">
                     <input type = "text" name='file_name' id='file_name' class="required">
-                    <input style="height: 30px;position: absolute;" type="button" id="upload" value="Upload File" class="btn btn-danger pull-right">
+                    <!--<input style="height: 30px;position: absolute;" type="button" id="upload" value="Upload File" class="btn btn-danger pull-right">!-->
+                </div>
+            </div>
+            <div class="control-group pull-right" >
+                <label for="folder" class="control-label">Folder name:<font color="red"><sup>*</sup></font></label>
+                <div class="controls">
+                    <input type = "text" name='folder_name' id='folder_name' class="required">
                 </div>
             </div>
             <div class="control-group input-append hide" id="enterDiv">
@@ -54,12 +60,12 @@
 <br/>
 <script>
 	jQuery(document).ready(function(){
-		jQuery('#upload').click(function(){
+		jQuery('#upload').click(function(){ return true;
 			jQuery('#uploadDiv').hide();
 			jQuery('#enterDiv').slideDown('slow');
 			jQuery('#file_name').val('');
 		});
-		jQuery('#enter').click(function(){
+		jQuery('#enter').click(function(){ return true;
 			jQuery('#uploadDiv').slideDown('slow');
 			jQuery('#enterDiv').hide();
 			jQuery('#file_name').val('');

@@ -23,12 +23,8 @@ class VideosController extends AppController {
 			$this->Session->setFlash(__( 'Action not allowed' ), 'default', array( 'class' => 'alert alert-error' ) );
 			$this->redirect( array( 'action' => 'index' ) );
 		}
-		if( $data = $this->request->data ) {
+		if( $data = $this->request->data) { 
 			if( !isset( $data['file_name'] ) ||  $data['file_name'] == '' ) {
-				if( $_FILES['upload_file']['type'] != 'application/x-shockwave-flash' ) {
-					$this->Session->setFlash(__( 'Only SWF Files' ), 'default', array( 'class' => 'alert alert-error' ) );
-					$this->redirect( array( 'action' => 'index' ) );
-				}
 				$fileExtension = "." . end(explode( '.', $_FILES['upload_file']['name']));
 				$dir = WWW_ROOT . 'vids/';
 				if (!is_dir($dir)) {
@@ -71,12 +67,15 @@ class VideosController extends AppController {
 			$this->redirect( array( 'action' => 'index' ) );
 		}
 		$vid = $this->Video->find( 'first', array( 'conditions' => array( 'id' => $videoId ) ) );
-		dump($vid);
 		$this->Video->updateAll( array( 'is_active' => "0" ), array( 'id' => $vid['Video']['id'] ) );
 		$dir = WWW_ROOT . 'vids/' . $vid['Video']['file_name'];
-		unlink($dir);
-		$this->Session->setFlash(__( 'Video Deleted' ), 'default', array( 'class' => 'alert alert-success' ) );
-		$this->redirect( array( 'action' => 'index' ) );
+		if( unlink($dir) ) {
+			$this->Session->setFlash(__( 'Video Deleted' ), 'default', array( 'class' => 'alert alert-success' ) );
+			$this->redirect( array( 'action' => 'index' ) );
+		} else {
+			$this->Session->setFlash(__( 'Video Deleted' ), 'default', array( 'class' => 'alert alert-success' ) );
+			$this->redirect( array( 'action' => 'index' ) );
+		}
 	}
 	
 }

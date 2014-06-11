@@ -14,9 +14,9 @@
                 </div>
             </div>
             <div class="control-group pull-right">
-                <label for="organisation_name" class="control-label">Company Name:<font color="red"><sup>*</sup></font></label>
+                <label for="organisation_name" class="control-label">Company Name:</label>
                 <div class="controls">
-                    <input type = "text" name='company_name' id='company_name' class="required" value="<?php echo $user['User']['company_name']?>">
+                    <input type = "text" name='company_name' id='company_name' value="<?php echo $user['User']['company_name']?>">
                 </div>
             </div>
             <div class="control-group input-append">
@@ -26,27 +26,9 @@
                 </div>
             </div>
             <div class="control-group pull-right">
-                <label for="last_name" class="control-label">Last Name:</label>
-                <div class="controls">
-                    <input type="text"  name='last_name' class="alphabet" value="<?php echo $user['User']['last_name']?>">
-                </div>
-            </div>
-            <div class="control-group input-append">
-                <label for="mobile" class="control-label">Mobile Number:<font color="red"><sup>*</sup></font><br/></label>
-                <div class="controls">
-                    <div class="input-prepend input-append"><span class="add-on">+91-</span><input class="span2 required number" type='text' autocomplete='off' maxlength="10" minlength="10" name='mobile' value="<?php echo $user['User']['mobile']?>"></div>
-                </div>
-            </div>
-            <div class="control-group pull-right">
                 <label for="mobile" class="control-label">Expiry:<font color="red"><sup>*</sup></font><br/></label>
                 <div class="controls">
                     <div class="input-prepend input-append"><input class="required date datepicker" type='text' autocomplete='off' name='valid_till' value="<?php echo date( 'Y-m-d', strtotime( $user['User']['valid_till'] ) ); ?>"></div>
-                </div>
-            </div>
-            <div class="control-group input-append">
-                <label for="email" class="control-label">Email Address:<font color="red"><sup>*</sup></font><br/></label>
-                <div class="controls">
-                    <input type='email' autocomplete='off' class="required email" id="email" name='email' value="<?php echo $user['User']['email']?>">
                 </div>
             </div>
         </fieldset>

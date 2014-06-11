@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]><html class="no-js lt-ie9" lang="en"> <![endif]-->
@@ -15,7 +15,7 @@
         if( $this->Session->read( 'SKIN' ) == '1' ) echo $this->Html->css( array('assets/ace.min', 'assets/ace-responsive.min', 'assets/prettify', 'video-js/video-js') );
         echo $this->fetch('meta');
         echo $this->fetch('css');
-        echo $this->Html->script( array( 'jquery.min', 'modernizr.min', 'bootstrap.min', 'jquery.validate', 'jquery.validate.min', 'jquery-ui.min', 'common','ace-elements.min', 'ace.min', 'video-js/video' ) );
+        echo $this->Html->script( array( 'jquery.min', 'modernizr.min', 'bootstrap.min', 'jquery.validate', 'jquery.validate.min', 'jquery-ui.min', 'common','ace-elements.min', 'ace.min', 'video-js/video', 'flash' ) );
 		echo $this->fetch('script');
     ?>
 	<script>

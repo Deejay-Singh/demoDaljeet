@@ -23,7 +23,7 @@ if( $this->Session->read( 'Auth.User.is_admin' ) ) {  ?>
             ?>
             <tr class="adddealertdcol">
                 <td><?php echo $video['Video']['name'] ?></td>
-                <td><?php echo $video['Video']['file_name'] ?></td>
+                <td><?php echo $video['Video']['folder_name'] . '/' . $video['Video']['file_name'] ?></td>
                 <td><?php echo ucwords( $cmpny[$video['Video']['user_id']] ) ?></td>
                 <td><?php echo ucwords( $users[$video['Video']['created_by']] ) ?></td>
                 <td><?php echo $this->Xyz->beautifulDate( $video['Video']['created'] ) ?></td>
