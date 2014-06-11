@@ -10,8 +10,6 @@ if($users != null) { ?>
         <tr>
             <th>Name</th>
             <th>Company Name</th>
-            <th>Contact #</th>
-            <th>Email</th>
             <th>Type</th>
             <th>Expiry</th>
             <th>Created By</th>
@@ -49,7 +47,7 @@ if($users != null) { ?>
                     <td><a id = 'action_<?php echo $detail['User']['id']; ?>_users' class="btn btn-success btn-small jquery_action_users" rel=1  >Activate</a>
                 <?php } ?>
                 </td>
-                <td><a class="btn-danger btn btn-small jquery_delete_user" rel="<?php echo 'delete_' . $detail['User']['id']?>" href="#"><span class="glyphicon glyphicon-envelope"></span></a></td>
+                <td><a class="btn-danger btn btn-small jquery_delete_user" rel="<?php echo 'delete_' . $detail['User']['id']?>" href="#">Delete</a></td>
             </tr>
             <?php 
         } ?>
