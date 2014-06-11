@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="control-group input-append">
-                <label for="first_name" class="control-label">First Name:<font color="red"><sup>*</sup></font></label>
+                <label for="first_name" class="control-label">Name:<font color="red"><sup>*</sup></font></label>
                 <div class="controls">
                     <input type = "text" name='first_name' id='first_name' class="required alphabet">
                 </div>

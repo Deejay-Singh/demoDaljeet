@@ -69,7 +69,7 @@ class UsersController extends AppController {
     
     public function view( $id = null ) {
 		if( $this->Session->read( 'Auth.User.is_admin' ) || $this->Session->read( 'Auth.User.id' ) == $id ) {
-			$userView = $this->User->find('first', array( 'conditions' => array( 'id' => $id ) ) );
+			$userView = $this->User->find('first', array( 'conditions' => array( 'id' => $id, 'is_deleted' => 0 ) ) );
 			$this->set( 'userView', $userView );
 		} else {
 			$this->redirect( array( 'controller' => 'videos', 'action' => 'index' ) );
@@ -78,9 +78,9 @@ class UsersController extends AppController {
     
     public function index() {
 		if( !$this->Session->read( 'Auth.User.is_admin' ) ) $this->redirect( array( 'controller' => 'videos', 'action' => 'index' ) );
-        $users = $this->User->find('all', array( 'order' => array( 'created DESC' ) ) );
+        $users = $this->User->find('all', array( 'conditions' => array( 'is_deleted' => 0 ), 'order' => array( 'created DESC' ) ) );
         $this->set('users', $users);
-        $usersList = $this->User->find('list', array( 'fields' => array( 'id', 'first_name' ) ) );
+        $usersList = $this->User->find('list', array( 'fields' => array( 'id', 'first_name' ), 'conditions' => array( 'is_deleted' => 0 ) ) );
         $this->set('usersList', $usersList);
     }
     
@@ -115,6 +115,7 @@ class UsersController extends AppController {
     public function commonElements( $id = null ) {
         if( $id )  $conditions = array( 'OR' => array( 'user_name' => $this->data['user_name'], 'id NOT' => $id ) );
         else $conditions = array( 'OR' => array( 'user_name' => $this->data['user_name'] ) );
+        $conditions['is_deleted'] = 0;
         $userData = $this->User->find('first', array( 'fields' => array( 'user_name AS User_name', 'email AS Email_Id', 'mobile AS Mobile_No' ), 'conditions' => $conditions ) );
         if( $userData ) {
             $commonElements = array_intersect($userData['User'], array( $this->data['user_name'] ) );
@@ -141,7 +142,7 @@ class UsersController extends AppController {
                     $this->redirect( array( 'action' => 'login' ) );
                 }
             }
-            $user = $this->User->find( 'first', array( 'fields' => array( 'id', 'email' , 'first_name' ), 'conditions' => array( 'email' => $data['email'], 'mobile' => $data['mobile'] ) ) );
+            $user = $this->User->find( 'first', array( 'fields' => array( 'id', 'email' , 'first_name' ), 'conditions' => array( 'email' => $data['email'], 'mobile' => $data['mobile'], 'is_deleted' => 0 ) ) );
             if( $user ) {  
                 $hash = sha1( $user['User']['first_name'] . time() . rand(0, 885466348) );
                 $this->User->save( array( 'id' => $user['User']['id'], 'reset_password' => 1, 'token_hash' => $hash ) );
@@ -169,4 +170,10 @@ class UsersController extends AppController {
         }
         else $this->set('verify', false);
     }
+    public function delete( $id ) {
+		$this->layout = 'ajax';
+        $this->User->id = $id;
+        $this->User->save(array('is_deleted' => 1 ) );
+        exit;
+	}
 }

@@ -1,5 +1,5 @@
 <div class="well well-small">
-    <h2>Upload Video<span class="label label-important pull-right"><sup> * </sup>FIELDS ARE MANDATORY </span></h2>
+    <h2>Edit Video<span class="label label-important pull-right"><sup> * </sup>FIELDS ARE MANDATORY </span></h2>
 </div>
 <form name="registration" action="" method="post" id="UserSignupForm" enctype="multipart/form-data">
     <div class="form-horizontal well">
@@ -7,26 +7,16 @@
             <h3>Video Information:</h3>
         </div>
         <fieldset style="width:90%;">
-            <div class="control-group input-append" >
-                <label for="role_id" class="control-label">Select User:<font color = "red"><sup>*</sup></font></label>
-                <div class="controls">
-					<select style="width:200px;" id="userList" name="user_id[]" multiple="multiple" class="form-control" >
-						<?php foreach( $users as $userId => $user ) { ?>
-							<option value="<?php echo $userId ?>"><?php echo $user ?></option>
-						<?php } ?>
-					</select>
-                </div>
-            </div>
             <div class="control-group pull-right">
                 <label for="organisation_name" class="control-label">Video Name:<font color="red"><sup>*</sup></font></label>
                 <div class="controls">
-                    <input type = "text" name='name' id='name' class="required">
+                    <input type = "text" name='name' id='name' value="<?php echo $video['Video']['name'] ?>" class="required">
                 </div>
             </div>
             <div class="control-group input-append">
                 <label for="first_name" class="control-label">Description:<font color="red"><sup>*</sup></font></label>
                 <div class="controls">
-                    <textarea col='5' rows='5' class="required" name="description" ></textarea>
+                    <textarea col='5' rows='5' class="required" name="description" ><?php echo $video['Video']['description'] ?></textarea>
                 </div>
             </div>
             <div class="control-group pull-right">
@@ -36,14 +26,14 @@
             <div class="control-group input-append" id="uploadDiv">
                 <label for="first_name" class="control-label">File Name:<font color="red"><sup>*</sup></font></label>
                 <div class="controls">
-                    <input type = "text" name='file_name' id='file_name' class="required">
+                    <input type = "text" name='file_name' value="<?php echo $video['Video']['file_name'] ?>" id='file_name' class="required">
                     <!--<input style="height: 30px;position: absolute;" type="button" id="upload" value="Upload File" class="btn btn-danger pull-right">!-->
                 </div>
             </div>
             <div class="control-group" >
                 <label for="folder" class="control-label">Folder name:<font color="red"><sup>*</sup></font></label>
                 <div class="controls">
-                    <input type = "text" name='folder_name' id='folder_name' class="required">
+                    <input type = "text" name='folder_name' value="<?php echo $video['Video']['folder_name'] ?>" id='folder_name' class="required">
                 </div>
             </div>
             <div class="control-group input-append hide" id="enterDiv">
@@ -56,28 +46,9 @@
         </fieldset>
     </div>
     <div class="loginstrbtn">
-        <input type = "hidden" name='created_by' value="<?php echo $this->Session->read( 'Auth.User.id' ); ?>" >
-        <input type="submit" id="submit" value="Upload" class="btn btn-success pull-right">
+        <input type = "hidden" name='id' value="<?php echo $video['Video']['id'] ?>" id='id'>
+        <input type="Submit" id="submit" value="Edit" class="btn btn-success pull-right">
     </div>
 </form>
 <br/>
 <br/>
-<script>
-	jQuery(document).ready(function(){
-		jQuery('#upload').click(function(){ return true;
-			jQuery('#uploadDiv').hide();
-			jQuery('#enterDiv').slideDown('slow');
-			jQuery('#file_name').val('');
-		});
-		jQuery('#enter').click(function(){ return true;
-			jQuery('#uploadDiv').slideDown('slow');
-			jQuery('#enterDiv').hide();
-			jQuery('#file_name').val('');
-		});
-		jQuery("#userList").multipleSelect({
-            filter: true,
-            name: 'Select User',
-            placeholder: "Select User"
-        });
-	});
-</script>

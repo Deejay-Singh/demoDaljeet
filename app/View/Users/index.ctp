@@ -18,13 +18,14 @@ if($users != null) { ?>
             <th>Created</th>
             <th>Active</th>
             <th>Action</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         <?php
         foreach($users as $detail) {
             ?>
-            <tr class="adddealertdcol">
+            <tr class="adddealertdcol" id="<?php echo 'tr_' . $detail['User']['id']?>">
                 <td><a href="<?php echo $this->Xyz->u('users', 'view', $detail['User']['id']);?>" ><?php echo ucfirst( $detail['User']['first_name'] ) . " " . ucfirst ( $detail['User']['last_name'] ); ?></a></td>
                 <td><?php echo ucwords( $detail['User']['company_name'] ); ?></td>
                 <td><?php echo $detail['User']['mobile']; ?></td>
@@ -48,6 +49,7 @@ if($users != null) { ?>
                     <td><a id = 'action_<?php echo $detail['User']['id']; ?>_users' class="btn btn-success btn-small jquery_action_users" rel=1  >Activate</a>
                 <?php } ?>
                 </td>
+                <td><a class="btn-danger btn btn-small jquery_delete_user" rel="<?php echo 'delete_' . $detail['User']['id']?>" href="#"><span class="glyphicon glyphicon-envelope"></span></a></td>
             </tr>
             <?php 
         } ?>
@@ -57,3 +59,21 @@ if($users != null) { ?>
     <div id='error'><center><p class="text-error">No data found. Please try again!!</p></center></div>
 <?php } ?>
 </div>
+
+<script>
+jQuery(document).ready(function(){
+	jQuery('.jquery_delete_user').click(function(){
+		var btn = jQuery(this).attr('rel');
+        var d = btn.split('_');
+        var id = d[1];
+        var setUrl = '/users/delete/'+ id;
+        jQuery.ajax({
+            type: "GET",
+            url: setUrl,
+            success: function(data) {
+                jQuery('#tr_'+id).hide();
+            }
+        });
+	});
+});
+</script>

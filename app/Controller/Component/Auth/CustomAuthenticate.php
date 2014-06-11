@@ -1,7 +1,7 @@
 <?php
 App::uses('BaseAuthenticate', 'Controller/Component/Auth');
 class CustomAuthenticate extends BaseAuthenticate {
-    public $settings = array('fields' => array('username' => array('user_name', 'email'), 'password' => 'user_pass'), 'userModel' => 'User');
+    public $settings = array('fields' => array('username' => array('user_name'), 'password' => 'user_pass'), 'userModel' => 'User');
     public function authenticate(CakeRequest $request, CakeResponse $response) {
         $userModel = $this->settings['userModel'];
         list($plugin, $model) = pluginSplit($userModel);

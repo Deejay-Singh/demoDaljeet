@@ -15,6 +15,7 @@ if( $this->Session->read( 'Auth.User.is_admin' ) ) {  ?>
             <th>Created</th>
             <th>View</th>
             <th>Delete</th>
+            <th>Edit</th>
         </tr>
         </thead>
         <tbody>
@@ -29,6 +30,7 @@ if( $this->Session->read( 'Auth.User.is_admin' ) ) {  ?>
                 <td><?php echo $this->Xyz->beautifulDate( $video['Video']['created'] ) ?></td>
                 <td><a class="btn btn-info btn-small" type="button" href="<?php echo $this->Xyz->u( 'videos', 'view', $video['Video']['id'] ); ?>" >View</a></td>
                 <td><a class="btn btn-danger btn-small" type="button" href="<?php echo $this->Xyz->u( 'videos', 'delete', $video['Video']['id'] ); ?>" >Delete</a></td>
+                <td><a class="btn btn-muted btn-small" type="button" href="<?php echo $this->Xyz->u( 'videos', 'edit', $video['Video']['id'] ); ?>" >Edit</a></td>
             </tr>
             <?php 
         } ?>

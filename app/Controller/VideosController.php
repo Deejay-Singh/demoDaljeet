@@ -42,8 +42,14 @@ class VideosController extends AppController {
 				}
 				$data['file_name'] = $video;
 			}
-			$this->Video->create();
-			$this->Video->save( $data );
+			unset($data['selectAll']);
+			unset($data['selectItem']);
+			$users = $data['user_id'];
+			foreach( $users as $user ) {
+				$data['user_id'] = $user;
+				$this->Video->create();
+				$this->Video->save( $data );
+			}
 			$this->Session->setFlash(__( 'Video Uploaded' ), 'default', array( 'class' => 'alert alert-success' ) );
 			$this->redirect( array( 'action' => 'index' ) );
 		}
@@ -76,6 +82,25 @@ class VideosController extends AppController {
 			$this->Session->setFlash(__( 'Video Deleted' ), 'default', array( 'class' => 'alert alert-success' ) );
 			$this->redirect( array( 'action' => 'index' ) );
 		}
+	}
+	
+	public function edit( $videoId = null ) {
+		if( $data = $this->request->data ) {
+			$this->Video->id = $data['id'];
+			$this->Video->save($data);
+			$this->Session->setFlash(__( 'Record Updated' ), 'default', array( 'class' => 'alert alert-success' ) );
+			$this->redirect( array( 'action' => 'index' ) );
+		}
+		if( !$this-> Session->read( 'Auth.User.is_admin' ) ) {
+			$this->Session->setFlash(__( 'Action not allowed' ), 'default', array( 'class' => 'alert alert-error' ) );
+			$this->redirect( array( 'action' => 'index' ) );
+		}
+		$vid = $this->Video->find( 'first', array( 'conditions' => array( 'id' => $videoId ) ) );
+		if( !isset( $vid['Video'] ) ) {
+			$this->Session->setFlash(__( 'Video Not Available' ), 'default', array( 'class' => 'alert alert-error' ) );
+			$this->redirect( array( 'action' => 'index' ) );
+		}
+		$this->set('video',$vid);
 	}
 	
 }
